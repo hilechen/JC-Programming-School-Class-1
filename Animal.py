@@ -33,7 +33,7 @@ class Animal:
         self.sound = sound
         self.status = status
         self.age = age
-        print('\n'+name,'was born','\n')
+        print('\nA',str(type(self)).replace('<class \'__main__.', '').replace('\'>', ''),'named '+name,'was born','\n')
     def die(self):
         self.status = 'dead'
         print(self.name,'died')
@@ -59,7 +59,17 @@ class Animal:
             (c1,c2) == ('Nome', 'Falcon') or \
             (c1,c2) == ('Falcon', 'Mammoth') or \
             (c1,c2) == ('Mammoth', 'Cat') or \
-            (c1,c2) == ('Cat', 'Superhero')                  
+            (c1,c2) == ('Cat', 'Superhero')
+    def __sub__(self, other):
+        c1 = str(type(self)).replace('<class \'__main__.', '').replace('\'>', '')
+        c2 = str(type(other)).replace('<class \'__main__.', '').replace('\'>', '')
+        c = (c1,c2)
+        return Mammoth(self.name) if c in [('Superhero','Cat'),('Cat','Falcon')] else \
+               Cat(self.name) if c in [('Nome','Superhero'),('Superhero','Mammoth')]else\
+               Superhero(self.name,100,'Fly',100) if c in [('Falcon','Nome'),('Nome','Cat')]else\
+               Nome(self.name) if c in [('Mammoth','Falcon'),('Falcon','Superhero')]else\
+               Falcon(self.name,8, 7, "Peregrine Falcon", 7, 100) if c in [('Cat','Mammoth'),('Mammoth','Nome')]else\
+               None
 
 class Cat(Animal):
     def __init__(self, name, sound = 'meow', status = 'alive', age = 0, life_count = 9):
@@ -89,7 +99,7 @@ class Mammoth(Animal):
                 res += ' load: ' + str(self.__dict__[i])+self.load_unit + '\n'
             res += i+ ' : ' + str(self.__dict__[i])+'\n'
         return res
-class Falcon(Animal):
+class Falcon(Animal): #Tony, PLEASE ADD DEFAULTS FOR ALL BUT NAME
     def __init__(self, name, wingspan, length, species, strength, health, sound = "kaw", status = "alive", killcount = 0, age = 0):
         super().__init__(name, sound, status, age)
         self.wingspan = wingspan
@@ -172,13 +182,11 @@ print(c)
 c.die()
 print(c)
 print('======================')
-print('Mammoth is created')
 m = Mammoth('Chip')
 print(m)
 m.grow(1)
 print(m)
 print('======================')
-print('Falcon is created')
 f = Falcon("Joe", 8, 7, "Peregrine Falcon", 7, 100)
 print(f)
 f.grow(6)
@@ -186,7 +194,6 @@ print(f)
 f.dive(1000, .8)
 print(f)
 print('======================')
-print('Nome is created')
 n = Nome('Nome',sound = 'grunt',special = 'did the orange justice')
 print(n)
 n.Special()
@@ -206,7 +213,6 @@ print(c)
 f.kill(n)
 f.kill(n2)
 print('======================')
-print('Superhero is created')
 bill=Superhero('bill',200,'flying','lasagna','4000000 fans', True,)
 print('bill crashed to earth')
 print(bill)
@@ -216,6 +222,11 @@ print(bill)
 print('bill is still saving earth after '+str(y)+' years')
 
 print(c > bill)
+print('c-f',c-f)
+print('c-n',c-n)
+print('c-m',c-m)
+print('c-bill',c-bill)
+print('bill-f',bill-f)
 
 
 
