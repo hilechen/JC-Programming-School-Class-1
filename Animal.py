@@ -55,7 +55,8 @@ class Animal:
     def __gt__(self, other):
         c1 = str(type(self)).replace('<class \'__main__.', '').replace('\'>', '')
         c2 = str(type(other)).replace('<class \'__main__.', '').replace('\'>', '')
-        return (c1,c2) in [('Superhero', 'Nome'),
+        c = (c1, c2)
+        return c in [('Superhero', 'Nome'),
             ('Nome', 'Falcon'),
             ('Falcon', 'Mammoth'),
             ('Mammoth', 'Cat'),
