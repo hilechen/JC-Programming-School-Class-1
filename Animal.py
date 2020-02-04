@@ -55,18 +55,18 @@ class Animal:
     def __gt__(self, other):
         c1 = str(type(self)).replace('<class \'__main__.', '').replace('\'>', '')
         c2 = str(type(other)).replace('<class \'__main__.', '').replace('\'>', '')
-        return (c1,c2) == ('Superhero', 'Nome') or \
-            (c1,c2) == ('Nome', 'Falcon') or \
-            (c1,c2) == ('Falcon', 'Mammoth') or \
-            (c1,c2) == ('Mammoth', 'Cat') or \
-            (c1,c2) == ('Cat', 'Superhero')
+        return (c1,c2) in [('Superhero', 'Nome'),
+            ('Nome', 'Falcon'),
+            ('Falcon', 'Mammoth'),
+            ('Mammoth', 'Cat'),
+            ('Cat', 'Superhero')]
     def __sub__(self, other):
         c1 = str(type(self)).replace('<class \'__main__.', '').replace('\'>', '')
         c2 = str(type(other)).replace('<class \'__main__.', '').replace('\'>', '')
         c = (c1,c2)
         return Mammoth(self.name) if c in [('Superhero','Cat'),('Cat','Falcon')] else \
                Cat(self.name) if c in [('Nome','Superhero'),('Superhero','Mammoth')]else\
-               Superhero(self.name,100,'Fly',100) if c in [('Falcon','Nome'),('Nome','Cat')]else\
+               Superhero(self.name) if c in [('Falcon','Nome'),('Nome','Cat')]else\
                Nome(self.name) if c in [('Mammoth','Falcon'),('Falcon','Superhero')]else\
                Falcon(self.name,8, 7, "Peregrine Falcon", 7, 100) if c in [('Cat','Mammoth'),('Mammoth','Nome')]else\
                None
@@ -134,8 +134,8 @@ class Falcon(Animal): #Tony, PLEASE ADD DEFAULTS FOR ALL BUT NAME
                 self.killcount += 1
 
 class Superhero(Animal):
-    def __init__(self, identity,mental_health, powers, fame, celeb=False,invincible=True):
-        super().__init__(identity)
+    def __init__(self, name,mental_health=150, powers='fly', fame='1000000 fans', celeb=False,invincible=True):
+        super().__init__(name)
         self.invincible=invincible
         self.mental_health=mental_health
         self.powers=powers
@@ -213,7 +213,9 @@ print(c)
 f.kill(n)
 f.kill(n2)
 print('======================')
+
 bill=Superhero('bill',200,'flying','lasagna','4000000 fans', True,)
+
 print('bill crashed to earth')
 print(bill)
 y=1000000000000000000000000
@@ -227,6 +229,8 @@ print('c-n',c-n)
 print('c-m',c-m)
 print('c-bill',c-bill)
 print('bill-f',bill-f)
+print(f>bill)
+
 
 
 
