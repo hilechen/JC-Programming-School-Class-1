@@ -42,7 +42,7 @@ class Animal:
         for i in self.__dict__.keys():
             res += i+ ' : ' + str(self.__dict__[i])+'\n'
         return res
-        
+       
     def kill(self,other_animal):
         print(self.name,'killed',other_animal.name)
         other_animal.die()
@@ -75,13 +75,22 @@ class Animal:
                Nome(self.name) if c in [('Mammoth','Falcon'),('Falcon','Superhero')]else\
                Falcon(self.name,8, 7, "Peregrine Falcon", 7, 100) if c in [('Cat','Mammoth'),('Mammoth','Nome')]else\
                None
-
+    def __add__(self, other):
+        a1 = str(type(self)).replace('<class \'__main__.', '').replace('\'>', '')
+        a2 = str(type(other)).replace('<class \'__main__.', '').replace('\'>', '')
+        a = (a1, a2)
+        return Falcon(self.name) if a == ('Superhero', 'Nome')else \
+               Mammoth(self.name) if a == ('Nome', 'Falcon')else\
+               Cat(self.name) if a == ('Falcon', 'Mammoth')else\
+               Superhero(self.name) if a == ('Mammoth', 'Cat')else\
+               Nome(self.name) if a == ('Cat', 'Superhero')else\
+               None
 class Cat(Animal):
     def __init__(self, name, sound = 'meow', status = 'alive', age = 0, life_count = 9):
-        
+       
         super().__init__(name, sound)
         self.life_count = life_count
-        
+       
     def die(self):
         if self.life_count > 1:
             self.life_count -= 1
@@ -108,7 +117,7 @@ class Mammoth(Animal):
             res += i+ ' : ' + str(self.__dict__[i])+'\n'
         return res
 class Falcon(Animal): #Tony, PLEASE ADD DEFAULTS FOR ALL BUT NAME
-    def __init__(self, name, wingspan, length, species, strength, health, sound = "kaw", status = "alive", killcount = 0, age = 0):
+    def __init__(self, name, wingspan = 4, length = 5,species = "Falcon", strength = 8, health = 92, sound = "kaw", status = "alive", killcount = 0, age = 0):
         super().__init__(name, sound, status, age)
         self.wingspan = wingspan
         self.length = length
@@ -244,5 +253,5 @@ print('bill-f',bill-f)
 print(f>bill)
 print(type(m))
 print(n < bill)
-
-
+print('bill+n', bill+n)
+print('bill+f', bill+f)
