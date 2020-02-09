@@ -1,12 +1,10 @@
 '''
 Superhero > Nome > Falcon > Mammoth > Cat > Superhero
-
 Superhero + Nome = Falcon
 Nome + Falcon = Mammoth
 Falcon + Mammoth = Cat
 Mammoth + Cat = Superhero
 Cat + Superhero = Nome
-
 Falcon - Nome = Superhero
 Falcon - Superhero = Nome
 Mammoth - Falcon = Nome
@@ -17,11 +15,8 @@ Superhero - Cat = Mammoth
 Superhero - Mammoth = Cat
 Nome - Cat = Superhero
 Nome - Superhero = Cat
-
 Check class for object example:
 if 'Cat' in str(type(self)) # check if self is a Cat object
-
-
 '''
 
 
@@ -56,6 +51,15 @@ class Animal:
         c1 = str(type(self)).replace('<class \'__main__.', '').replace('\'>', '')
         c2 = str(type(other)).replace('<class \'__main__.', '').replace('\'>', '')
         c = (c1, c2)
+        return c in [('Superhero', 'Nome'),
+            ('Nome', 'Falcon'),
+            ('Falcon', 'Mammoth'),
+            ('Mammoth', 'Cat'),
+            ('Cat', 'Superhero')]
+    def __lt__(self, other):
+        c1 = str(type(self)).replace('<class \'__main__.', '').replace('\'>', '')
+        c2 = str(type(other)).replace('<class \'__main__.', '').replace('\'>', '')
+        c = (c2, c1)
         return c in [('Superhero', 'Nome'),
             ('Nome', 'Falcon'),
             ('Falcon', 'Mammoth'),
@@ -97,7 +101,10 @@ class Mammoth(Animal):
         res = ''
         for i in self.__dict__.keys():
             if i == 'load':
-                res += ' load: ' + str(self.__dict__[i])+self.load_unit + '\n'
+                res += 'load: ' + str(self.__dict__[i])+self.load_unit + '\n'
+                continue
+            elif i == 'load_unit':
+                continue
             res += i+ ' : ' + str(self.__dict__[i])+'\n'
         return res
 class Falcon(Animal): #Tony, PLEASE ADD DEFAULTS FOR ALL BUT NAME
@@ -183,11 +190,13 @@ print(c)
 c.die()
 print(c)
 print('======================')
+
 m = Mammoth('Chip')
 print(m)
 m.grow(1)
 print(m)
 print('======================')
+
 f = Falcon("Joe", 8, 7, "Peregrine Falcon", 7, 100)
 print(f)
 f.grow(6)
@@ -195,6 +204,7 @@ print(f)
 f.dive(1000, .8)
 print(f)
 print('======================')
+
 n = Nome('Nome',sound = 'grunt',special = 'did the orange justice')
 print(n)
 n.Special()
@@ -202,6 +212,7 @@ n.learn_magic()
 n.kill(c)
 print(n)
 print(c)
+
 n2 = Nome('Gnome',sound = 'Meow',special = 'tripped and fell')
 print(n2)
 n2.Special()
@@ -231,9 +242,7 @@ print('c-m',c-m)
 print('c-bill',c-bill)
 print('bill-f',bill-f)
 print(f>bill)
-
-
-
-
+print(type(m))
+print(n < bill)
 
 
